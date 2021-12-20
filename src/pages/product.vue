@@ -10,13 +10,13 @@
     },
     data () {
       return {
-      }
+      };
     },
     mounted () {
     },
     components:{
     }
-  }
+  };
 </script>
 <style lang="less" scoped>
   @import "~@/assets/less/product/product.less";

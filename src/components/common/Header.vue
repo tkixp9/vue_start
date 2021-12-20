@@ -2,7 +2,7 @@
   <div class="header-wrap">
     <img class="logo link-url" src="../../assets/images/logo.png"/>
     <ul class="link-outer-wrap">
-      <li class="link-wrap link-url" v-for="(item, index) in links" :key="index">
+      <li class="link-wrap link-url" v-for="(item, index) in getNavs" :key="index">
         <router-link class="link-content" :to="item.url">{{item.title}}</router-link>
       </li>
       <li style="display: none">
@@ -18,11 +18,11 @@
     <div class="login-wrap">
       <div class="login-item link-url">登陆</div>
       <div class="register-item link-url">注册</div>
-      <img @click="triggerMenu" class="menu-more link-url" src="../../assets/images/icons/menu_more.png">
+      <img v-if="getNavs.length" @click="triggerMenu" class="menu-more link-url" src="../../assets/images/icons/menu_more.png">
     </div>
     <ul class="menu-outer-wrap" :class="menuActive ? 'active' : ''">
       <img @click="triggerMenu" class="menu-close link-url" src="../../assets/images/icons/close.png">
-      <li @click="triggerMenu" class="menu-item-wrap link-url" v-for="(item, index) in links" :key="index">
+      <li @click="triggerMenu" class="menu-item-wrap link-url" v-for="(item, index) in getNavs" :key="index">
         <router-link class="menu-content" :to="item.url">{{item.title}}</router-link>
       </li>
     </ul>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   export default {
     data() {
       return {
@@ -72,17 +73,21 @@
             url: '/'
           }
         ]
-      }
+      };
+    },
+    computed: {
+      ...mapGetters('common', ['getNavs'])
     },
     methods: {
       triggerMenu () {
-        console.log('tkyj+++', this.menuActive)
+        console.log('tkyj+++', this.menuActive);
         this.menuActive = !this.menuActive;
       }
     },
     mounted() {
+      this.$store.dispatch('common/FETCH_NAVS', { test: 1 });
     }
-  }
+  };
 </script>
 
 <style lang="less" scoped>

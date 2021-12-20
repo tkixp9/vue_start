@@ -270,8 +270,8 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import { getDate } from '@/utils/_date.js'
+  import axios from 'axios';
+  import { getDate } from '@/utils/_date.js';
   export default {
     name: 'Home',
     metaInfo: {
@@ -279,7 +279,7 @@
     },
     filters:{
       date (value) {
-        return getDate(value)
+        return getDate(value);
       }
     },
 
@@ -299,29 +299,29 @@
         },
         bannerData:[],
         host: window.location.origin
-      }
+      };
     },
     mounted () {
-      this.getNews()
-      this.getBanner()
+      this.getNews();
+      this.getBanner();
     },
     methods: {
       getNews(){
         axios.get('/api/information/index').then((res)=>{
           if (res.data.code==0) {
-            this.news = res.data.data
+            this.news = res.data.data;
           }
-        })
+        });
       },
       getBanner(){
         axios.get('/api/advertisement/index').then((res)=>{
           if (res.data.code==0) {
-            this.bannerData = res.data.data
+            this.bannerData = res.data.data;
           }
-        })
+        });
       }
     },
-  }
+  };
 </script>
 
 <style lang="less">
